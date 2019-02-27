@@ -1,6 +1,7 @@
 <?php
 require_once "db.php";
-$db = new DB("cjd","root","","localhost");
+require_once "config.php";
+$db = new DB("db_cjd",CJD_USER,CJD_PASSWORD,"localhost");
 
 header('Content-type: application/json');
 

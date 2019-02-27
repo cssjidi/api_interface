@@ -1,9 +1,9 @@
 <?php
 	require_once "db.php";
-	$db = new DB("db_cjd","root","","localhost");
+	require_once "config.php";
+	$db = new DB("db_cjd",CJD_USER,CJD_PASSWORD,"localhost");
 	$db->query("SELECT `name` FROM cjd_idiom WHERE LENGTH(`name`) = 12");
 	$rows = $db->result();
-	
 ?>
 <!DOCTYPE html>
 <html>
