@@ -1,14 +1,14 @@
 <?php
 require_once "db.php";
-$db = new DB("cjd","root","","localhost");
+require_once "config.php";
+$db = new DB("db_cjd",CJD_USER,CJD_PASSWORD,"localhost");
 header('Content-type: application/json');
-session_start();
 $json = array();
 if(isset($_GET['first'])){
-	$db->select('cjd_idiom1');
+	$db->select('cjd_idiom');
 	$count = $db->count();
 	$ram = rand(0,$count-1);
-	$db->query("SELECT `name` FROM cjd_idiom1 LIMIT ".$ram.",1");
+	$db->query("SELECT `name` FROM cjd_idiom LIMIT ".$ram.",1");
 	$json['code'] = 1;
 	$json['msg'] = $_SESSION['name'] = trim($db->row(0)->name);
 }else if(isset($_GET['end'])){
@@ -30,10 +30,10 @@ if(isset($_GET['first'])){
 		echo $sessionLastChar;
 		echo $firstChar;
 		if($sessionLastChar == $firstChar){
-			$db->select('cjd_idiom1',['name'=>$title]);
+			$db->select('cjd_idiom',['name'=>$title]);
 			if($db->count() > 0){
 				unset($_SESSION['name']);
-				$db->query("SELECT `name` FROM cjd_idiom1 WHERE `name` LIKE '".$lastChar."%'");
+				$db->query("SELECT `name` FROM cjd_idiom WHERE `name` LIKE '".$lastChar."%'");
 				$index = 0;
 				if($db->count() > 0){
 					if($db->count() > 1){
